@@ -50,7 +50,7 @@ def isValid(row, col):
     return row >= 0 and row < n and col >= 0 and col < m
 
 # Breadth first search traversal with multiple desired points, essentially Dijstra's Shortest path, but for a binary maze.
-def bfs_multi(mat, src: Point, dest: Point):
+def bfs_multi(maze, src: Point, dest: Point):
 
     # destination position matters. Important when we want to generate an adjacency matrix
     dest_points = [[i.x,i.y] for i in dest]
@@ -101,7 +101,7 @@ def bfs_multi(mat, src: Point, dest: Point):
             # we mark it as visited in the visited array
             # set the pointer for the next node to point to the current node
             # enque the adjacent node
-            if isValid(row,col) and mat[row][col] == 1 and visited[row][col] == False:
+            if isValid(row,col) and maze[row][col] == 1 and visited[row][col] == False:
                 adjacent = tree[row][col] = queueNode(Point(row,col),curr.dist+1)
                 visited[row][col] = True
                 tree[row][col].set_prev(curr)

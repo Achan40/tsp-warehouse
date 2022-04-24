@@ -1,7 +1,8 @@
 # Driver Code
 from timeit import default_timer as timer
 from naive import tsp_naive
-from maze import Point, bfs_multi
+from maze import Point
+from matricies import adj_matricies
 
 if __name__ == "__main__":
  
@@ -26,10 +27,18 @@ if __name__ == "__main__":
 
     # in this case, we've manually created a dummy node connecting nodes 0 and 4, so the starting node must be 0 or 4
     start = timer()
-    print(tsp_naive(graph,0,1))
-    source = Point(0,0)
-    dest = [Point(7,0),Point(5,2)]
 
-    print(bfs_multi(maze,source,dest))
+    # nodes that we want to reach in the maze
+    dest = [Point(7,0),Point(5,2),Point(2,2)]
+
+    # adjacency matrix of the nodes
+    # the graph is a completely connected undirected graph
+    # edge weights are the distance between the nodes
+    # also returned is and adjacency matrix containing the least costly path to take between nodes
+    adjmat, pathmat = adj_matricies(maze,dest)
+
+    # running the tsp solving algorithm
+    print(tsp_naive(adjmat,0,2))
+
     end = timer()
     print("Time taken: " + str(end - start))
