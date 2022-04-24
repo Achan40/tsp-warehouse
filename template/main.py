@@ -1,6 +1,6 @@
 # Driver Code
 from timeit import default_timer as timer
-from naive import tsp_naive
+from tsp_naive import tsp_naive
 from maze import Point
 from matricies import adj_matricies
 
