@@ -1,10 +1,11 @@
 from collections import deque
-from email.errors import NonPrintableDefect
-
-from numpy import short
 # rows and col of maze
 n = 9
 m = 10
+
+# used to get the row and col num of the 4 neighbors of a cell
+row_num = [-1, 0, 0, 1]
+col_num = [0, -1, 1, 0]
 
 # store maze cell coordinates
 class Point:
@@ -22,49 +23,48 @@ class queueNode:
         # xy coords
         self.loc = [self.pt.x, self.pt.y]
 
-        # check cell has been visited
-        self.visited = False
-
         # cell's distance from the source node
         self.dist = dist
 
         # previous node
         self.prev = None
 
-    # def __repr__(self):
-    #     rep = str(self.loc)
-    #     return rep
-
-    # check if the cell have been visited before
-    def set_visited(self):
-        self.visited = True
+    # string representation of the node
+    def __repr__(self):
+        rep = str(self.loc)
+        return rep
     
     # point to the previous node traversed
     def set_prev(self, previous):
         self.prev = previous
 
+# recursion to find the minimum path from the source to a destination
 def shortest(node, path):
     if node.prev:
         path.append(node.prev.loc)
         shortest(node.prev, path)
-    return path
+    return path[::-1]
 
 # check if a cell is within the bounds of the maze
 def isValid(row, col):
     return row >= 0 and row < n and col >= 0 and col < m
 
-# used to get the row and col num of the 4 neighbors of a cell
-row_num = [-1, 0, 0, 1]
-col_num = [0, -1, 1, 0]
+# Breadth first search traversal with multiple desired points, essentially Dijstra's Shortest path, but for a binary maze.
+def bfs_multi(mat, src: Point, dest: Point):
 
-def BFS(mat, src: Point, dest: Point):
+    # destination position matters. Important when we want to generate an adjacency matrix
+    dest_points = [[i.x,i.y] for i in dest]
 
-    # check if src and dest in the matrix have value 1
-    if mat[src.x][src.y] != 1 or mat[dest.x][dest.y] != 1:
-        return -1
+    # initiate array to store the distance of destinations to the source node
+    # initiate array to store the minimum path traveled to reach a destination
+    # if a destination is not found, the value in the dist array and path array will remain -1
+    dist_arr = [-1 for i in range(len(dest))]
+    path_arr = [-1 for i in range(len(dest))]
 
+    # initate array to track if a cell has been visited
     # initiate shortest path tree array
-    visited = [[0 for i in range(m)] for j in range(n)]
+    visited = [[False for i in range(m)] for j in range(n)]
+    tree = [[0 for i in range(m)] for j in range(n)]
 
     # create a queue for BFS
     q = deque()
@@ -72,9 +72,10 @@ def BFS(mat, src: Point, dest: Point):
     # the distance of the source cell to itself is 0
     s = queueNode(src, 0)
 
+    # set the first node of the shortest path tree
+    tree[src.x][src.y] = s
     # marking source as visited
-    visited[src.x][src.y] = s
-    visited[src.x][src.y].set_visited()
+    visited[src.x][src.y] = True
     
     # enqueue the src cell
     q.append(s)
@@ -85,44 +86,26 @@ def BFS(mat, src: Point, dest: Point):
         # dequeue the front cell
         curr = q.popleft()
 
-        # if we have reached dest, finish traversal
-        pt = curr.pt
-        if pt.x == dest.x and pt.y == dest.y:
-            print(shortest(visited[dest.x][dest.y],[visited[dest.x][dest.y].loc]))
-            return curr.dist
+        # if we have reached a dest, store the minimum path cost in dist_arr
+        # if we have reach a dest, store the minimum path in path_arr
+        if curr.loc in dest_points:
+            dist_arr[dest_points.index(curr.loc)] = curr.dist
+            path_arr[dest_points.index(curr.loc)] = shortest(tree[curr.pt.x][curr.pt.y],[tree[curr.pt.x][curr.pt.y]])
         
-        # else enque the adjacent cells
+        # otherwise enqueue the adjacent cells
         for i in range(4):
-            row = pt.x + row_num[i]
-            col = pt.y + col_num[i]
+            row = curr.pt.x + row_num[i]
+            col = curr.pt.y + col_num[i]
 
             # if adjacent cell is valid, and has path not yet visited
-            # we mark it as visited and enqueue it
+            # we mark it as visited in the visited array
+            # set the pointer for the next node to point to the current node
+            # enque the adjacent node
             if isValid(row,col) and mat[row][col] == 1 and visited[row][col] == False:
-                adjacent = visited[row][col] = queueNode(Point(row,col),curr.dist+1)
-                visited[row][col].set_visited()
-                visited[row][col].set_prev(curr)
+                adjacent = tree[row][col] = queueNode(Point(row,col),curr.dist+1)
+                visited[row][col] = True
+                tree[row][col].set_prev(curr)
                 
                 q.append(adjacent)
         
-        
-    
-    # if destination is not found return -1
-    return -1
-    
-mat = [[ 1, 0, 1, 1, 1, 1, 0, 1, 1, 1 ],
-        [ 1, 0, 1, 0, 1, 1, 1, 0, 1, 1 ],
-        [ 1, 1, 1, 0, 1, 1, 0, 1, 0, 1 ],
-        [ 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 ],
-        [ 1, 1, 1, 0, 1, 1, 1, 0, 1, 0 ],
-        [ 1, 0, 1, 1, 1, 1, 0, 1, 0, 0 ],
-        [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
-        [ 1, 0, 1, 1, 1, 1, 0, 1, 1, 1 ],
-        [ 1, 1, 0, 0, 0, 0, 1, 0, 0, 1 ]]
-
-source = Point(0,0)
-dest = Point(3,4)
-
-
-dist = BFS(mat,source,dest)
-print(dist)
+    return dist_arr, path_arr

@@ -1,6 +1,7 @@
 # Driver Code
 from timeit import default_timer as timer
 from naive import tsp_naive
+from maze import Point, bfs_multi
 
 if __name__ == "__main__":
  
@@ -26,5 +27,9 @@ if __name__ == "__main__":
     # in this case, we've manually created a dummy node connecting nodes 0 and 4, so the starting node must be 0 or 4
     start = timer()
     print(tsp_naive(graph,0,1))
+    source = Point(0,0)
+    dest = [Point(7,0),Point(5,2)]
+
+    print(bfs_multi(maze,source,dest))
     end = timer()
     print("Time taken: " + str(end - start))
