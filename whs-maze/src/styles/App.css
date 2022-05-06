@@ -20,7 +20,6 @@
 .cell {
   width: 2rem;
   height: 2rem;
-  background-color: white;
   outline: 1px solid rgba(144, 175, 175, 0.75);
   display: inline-block;
 }
