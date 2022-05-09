@@ -7,6 +7,8 @@ import ToggleButton from 'react-bootstrap/ToggleButton'
 class Grid extends Component {
     constructor() {
         super();
+
+        // array of binary maze, initiate with no walls.
         this.arr = 
         [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -19,12 +21,24 @@ class Grid extends Component {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]]
 
         this.state = {
-            currentButton: null
+            currentButton: null,
         }
 
-        // bind custom method
-        this.toggleCell = this.toggleCell.bind(this)
-        this.setCurrent = this.setCurrentButton.bind(this)
+        // dictionary of destinations to visit
+        // dictionary is needed so that if we can remove a destination by key if we need to
+        this.points = {}
+
+        // array for start and end point
+        // a single start point is required, end point is optional
+        this.start = []
+        this.end = []
+
+        // bind custom methods
+        this.setCurrent = this.setCurrentButton.bind(this);
+        this.toggleWall = this.toggleWall.bind(this);
+        this.togglePoint = this.togglePoint.bind(this);
+        this.toggleStart = this.toggleStart.bind(this);
+        this.toggleEnd = this.toggleEnd.bind(this);
     }
 
     // setting the current toggled button
@@ -34,29 +48,70 @@ class Grid extends Component {
 
     // changing state of parent component based on event in child component
     // passing the toggleCell method to child component, which will then trigger (and check validations) based on an event
-    toggleCell(row, col, val) {
+    // utilized in child component
+    toggleWall(row, col, val) {
         this.arr[row][col] = val
         this.forceUpdate()
+    }
+
+    // add destination points to a dictionary
+    // remove if a point is unselected
+    // utilized in child component
+    togglePoint(row, col, action) {
+        let key = row.toString() + col.toString()
+        if (action === "add") {
+            this.points[key] = [row,col]
+            this.forceUpdate()
+        } else if (action === "remove") {
+            delete this.points[key]
+            this.forceUpdate()
+        }
+    }
+
+    // managing the start point
+    // utilized in child component
+    toggleStart(row, col, action) {
+        if (action === "add") {
+            this.start = [row,col]
+            this.forceUpdate()
+        } else if (action === "remove") {
+            this.start = []
+            this.forceUpdate()
+        }
+    }
+
+    // managing the end point
+    // utilized in child component
+    toggleEnd(row, col, action) {
+        if (action === "add") {
+            this.end = [row,col]
+            this.forceUpdate()
+        } else if (action === "remove") {
+            this.end = []
+            this.forceUpdate()
+        }
     }
 
     // render the grid
     // use a nested loop to generate each cell, set the key of each cell to the index of the cell in the initial array
     render() {
+        console.log(this.start,this.end)
+        console.log(this.points)
         return (
             <div>
                 <div>{this.state.currentButton}</div>
                 <ToggleButtonGroup type="radio" name="options" onChange={(event) => {this.setCurrentButton(event);}}>
-                    <ToggleButton id="one" value={"Points"}>Place Points</ToggleButton>
-                    <ToggleButton id="two" value={"Walls"}>Place Walls</ToggleButton>
+                    <ToggleButton id="one" value={"Points"}>Place/Remove Points</ToggleButton>
+                    <ToggleButton id="two" value={"Walls"}>Place/Remove Walls</ToggleButton>
                     <ToggleButton id="three" value={"Start"}>Set Start</ToggleButton>
-                    <ToggleButton id="three" value={"End"}>Set End</ToggleButton>
+                    <ToggleButton id="four" value={"End"}>Set End</ToggleButton>
                 </ToggleButtonGroup>
 
                 <div className="grid">
                     {this.arr.map((row,rowInd) => {
                         return (
                             <div className="gridrow" key={rowInd}>
-                                {row.map((value,colInd) => <Cell val={this.arr[rowInd][colInd]} key={[rowInd,colInd]} ind={[rowInd,colInd]} currentButton={this.state.currentButton} toggleCell={this.toggleCell}/>)}
+                                {row.map((value,colInd) => <Cell val={this.arr[rowInd][colInd]} key={[rowInd,colInd]} ind={[rowInd,colInd]} currentButton={this.state.currentButton} toggleWall={this.toggleWall} togglePoint={this.togglePoint} toggleStart={this.toggleStart} toggleEnd={this.toggleEnd} s={this.start} e={this.end}/>)}
                             </div>
                         )
                     })}
