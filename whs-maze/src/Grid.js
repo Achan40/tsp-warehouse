@@ -1,5 +1,6 @@
 import { Component } from "react";
 import Cell from "./Cell";
+import Result from "./Result";
 import 'bootstrap/dist/css/bootstrap.css';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
 import ToggleButton from 'react-bootstrap/ToggleButton'
@@ -34,7 +35,7 @@ class Grid extends Component {
         this.end = []
 
         // bind custom methods
-        this.setCurrent = this.setCurrentButton.bind(this);
+        this.setCurrentButton = this.setCurrentButton.bind(this);
         this.toggleWall = this.toggleWall.bind(this);
         this.togglePoint = this.togglePoint.bind(this);
         this.toggleStart = this.toggleStart.bind(this);
@@ -117,6 +118,7 @@ class Grid extends Component {
                     })}
                 </div>
 
+                <Result arr={this.arr} points={this.points} start={this.start} end={this.end}/>
             </div>
         )
     }
