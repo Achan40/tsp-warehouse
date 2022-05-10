@@ -1,6 +1,6 @@
-from maze import Point, bfs_multi
+from maze import bfs_multi
 
-def adj_matricies(maze, points: Point):
+def adj_matricies(maze, points):
     adj_mat = []
     path_mat = []
 
@@ -8,7 +8,7 @@ def adj_matricies(maze, points: Point):
     # The bfs_multi function traverses entire maze anyways, so reducing points traversed does not do much anyways
     # make bfs_multi more efficent in the future? (pop off list if found)
     for i in range(len(points)):
-        res = bfs_multi(maze, points[i],points)
+        res = bfs_multi(maze, points[i], points)
         adj_mat.append(res[0])
         path_mat.append(res[1])
     

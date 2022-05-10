@@ -7,21 +7,15 @@ m = 10
 row_num = [-1, 0, 0, 1]
 col_num = [0, -1, 1, 0]
 
-# store maze cell coordinates
-class Point:
-    def __init__(self, x: int, y: int):
-        self.x = x
-        self.y = y
-
 # structure for queue used in BFS
 class queueNode:
-    def __init__(self, pt: Point, dist: int) -> None:
+    def __init__(self, pt, dist: int) -> None:
         
         # cell coordinates (when we need to access x and y seperately)
         self.pt = pt
 
         # xy coords
-        self.loc = [self.pt.x, self.pt.y]
+        self.loc = [self.pt[0], self.pt[1]]
 
         # cell's distance from the source node
         self.dist = dist
@@ -50,10 +44,10 @@ def isValid(row, col):
     return row >= 0 and row < n and col >= 0 and col < m
 
 # Breadth first search traversal with multiple desired points, essentially Dijstra's Shortest path, but for a binary maze.
-def bfs_multi(maze, src: Point, dest: Point):
+def bfs_multi(maze, src, dest):
 
     # destination position matters. Important when we want to generate an adjacency matrix
-    dest_points = [[i.x,i.y] for i in dest]
+    dest_points = [[i[0],i[1]] for i in dest]
 
     # initiate array to store the distance of destinations to the source node
     # initiate array to store the minimum path traveled to reach a destination
@@ -73,9 +67,9 @@ def bfs_multi(maze, src: Point, dest: Point):
     s = queueNode(src, 0)
 
     # set the first node of the shortest path tree
-    tree[src.x][src.y] = s
+    tree[src[0]][src[1]] = s
     # marking source as visited
-    visited[src.x][src.y] = True
+    visited[src[0]][src[1]] = True
     
     # enqueue the src cell
     q.append(s)
@@ -90,19 +84,19 @@ def bfs_multi(maze, src: Point, dest: Point):
         # if we have reach a dest, store the minimum path in path_arr
         if curr.loc in dest_points:
             dist_arr[dest_points.index(curr.loc)] = curr.dist
-            path_arr[dest_points.index(curr.loc)] = shortest(tree[curr.pt.x][curr.pt.y],[tree[curr.pt.x][curr.pt.y]])
+            path_arr[dest_points.index(curr.loc)] = shortest(tree[curr.pt[0]][curr.pt[1]],[tree[curr.pt[0]][curr.pt[1]]])
         
         # otherwise enqueue the adjacent cells
         for i in range(4):
-            row = curr.pt.x + row_num[i]
-            col = curr.pt.y + col_num[i]
+            row = curr.pt[0] + row_num[i]
+            col = curr.pt[1] + col_num[i]
 
             # if adjacent cell is valid, and has path not yet visited
             # we mark it as visited in the visited array
             # set the pointer for the next node to point to the current node
             # enque the adjacent node
             if isValid(row,col) and maze[row][col] == 1 and visited[row][col] == False:
-                adjacent = tree[row][col] = queueNode(Point(row,col),curr.dist+1)
+                adjacent = tree[row][col] = queueNode([row,col],curr.dist+1)
                 visited[row][col] = True
                 tree[row][col].set_prev(curr)
                 

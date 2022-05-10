@@ -1,7 +1,6 @@
 # Driver Code
 from timeit import default_timer as timer
 from tsp_naive import tsp_naive
-from maze import Point
 from matricies import adj_matricies
 
 if __name__ == "__main__":
@@ -29,7 +28,7 @@ if __name__ == "__main__":
     start = timer()
 
     # nodes that we want to reach in the maze
-    dest = [Point(7,0),Point(5,2),Point(2,2)]
+    dest = [[7,0],[5,2],[2,2]]
 
     # adjacency matrix of the nodes
     # the graph is a completely connected undirected graph
