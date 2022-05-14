@@ -1,7 +1,8 @@
 from collections import deque
+from curses import pair_number
 # rows and col of maze
-n = 9
-m = 10
+n = 4
+m = 4
 
 # used to get the row and col num of the 4 neighbors of a cell
 row_num = [-1, 0, 0, 1]

@@ -1,12 +1,9 @@
 // structure for each node used in BFS
 export class QueueNode {
-    constructor(pt, dist) {
+    constructor(loc, dist) {
 
-        // cell coordinates (when we need to access x and y seperately)
-        this.pt = pt;
-
-        // xy coords
-        this.loc = [this.pt[0], this.pt[1]];
+        // cell coordinates on an xy plane of the maze in array form
+        this.loc = loc;
 
         // cell's distance from the source node
         this.dist = dist;

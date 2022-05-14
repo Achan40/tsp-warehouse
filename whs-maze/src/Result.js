@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { convertPoints, adjMatricies } from "./helpers/maze.js";
 import Button from 'react-bootstrap/Button'
 
 class Result extends Component {
@@ -9,13 +10,17 @@ class Result extends Component {
         this.runTSP = this.runTSP.bind(this);
     }
 
-    runTSP(event) {
-        console.log(event)
+    runTSP(maze,points,start,end) {
+        // convert dictionary of points to an array of values
+        let pointsArr = convertPoints(points)
+
+        console.log(adjMatricies(maze,pointsArr)[0])
+        console.log(adjMatricies(maze,pointsArr)[1])
     }
 
     render() {
         return(
-            <Button onClick={() => this.runTSP(this.props.arr)}>Run TSP</Button>
+            <Button onClick={() => this.runTSP(this.props.maze, this.props.points, this.props.start, this.props.end)}>Run TSP</Button>
         )
     }
 }

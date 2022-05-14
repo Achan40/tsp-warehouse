@@ -10,16 +10,12 @@ class Grid extends Component {
         super();
 
         // array of binary maze, initiate with no walls.
-        this.arr = 
-        [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]]
+        this.maze = 
+        [[0, 0, 0, 0 ],
+        [0, 0, 0, 0 ],
+        [0, 0, 0, 0 ],
+        [0, 0, 0, 0 ]]
+
 
         this.state = {
             currentButton: null,
@@ -51,7 +47,7 @@ class Grid extends Component {
     // passing the toggleCell method to child component, which will then trigger (and check validations) based on an event
     // utilized in child component
     toggleWall(row, col, val) {
-        this.arr[row][col] = val
+        this.maze[row][col] = val
         this.forceUpdate()
     }
 
@@ -96,8 +92,6 @@ class Grid extends Component {
     // render the grid
     // use a nested loop to generate each cell, set the key of each cell to the index of the cell in the initial array
     render() {
-        console.log(this.start,this.end)
-        console.log(this.points)
         return (
             <div>
                 <div>{this.state.currentButton}</div>
@@ -109,16 +103,16 @@ class Grid extends Component {
                 </ToggleButtonGroup>
 
                 <div className="grid">
-                    {this.arr.map((row,rowInd) => {
+                    {this.maze.map((row,rowInd) => {
                         return (
                             <div className="gridrow" key={rowInd}>
-                                {row.map((value,colInd) => <Cell val={this.arr[rowInd][colInd]} key={[rowInd,colInd]} ind={[rowInd,colInd]} currentButton={this.state.currentButton} toggleWall={this.toggleWall} togglePoint={this.togglePoint} toggleStart={this.toggleStart} toggleEnd={this.toggleEnd} s={this.start} e={this.end}/>)}
+                                {row.map((value,colInd) => <Cell val={this.maze[rowInd][colInd]} key={[rowInd,colInd]} ind={[rowInd,colInd]} currentButton={this.state.currentButton} toggleWall={this.toggleWall} togglePoint={this.togglePoint} toggleStart={this.toggleStart} toggleEnd={this.toggleEnd} s={this.start} e={this.end}/>)}
                             </div>
                         )
                     })}
                 </div>
 
-                <Result arr={this.arr} points={this.points} start={this.start} end={this.end}/>
+                <Result maze={this.maze} points={this.points} start={this.start} end={this.end}/>
             </div>
         )
     }
