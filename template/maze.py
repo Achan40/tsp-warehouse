@@ -46,9 +46,6 @@ def isValid(row, col):
 # Breadth first search traversal with multiple desired points, essentially Dijstra's Shortest path, but for a binary maze.
 def bfs_multi(maze, src, dest):
 
-    # destination position matters. Important when we want to generate an adjacency matrix
-    dest_points = [[i[0],i[1]] for i in dest]
-
     # initiate array to store the distance of destinations to the source node
     # initiate array to store the minimum path traveled to reach a destination
     # if a destination is not found, the value in the dist array and path array will remain -1
@@ -81,10 +78,10 @@ def bfs_multi(maze, src, dest):
         curr = q.popleft()
 
         # if we have reached a dest, store the minimum path cost in dist_arr
-        # if we have reach a dest, store the minimum path in path_arr
-        if curr.loc in dest_points:
-            dist_arr[dest_points.index(curr.loc)] = curr.dist
-            path_arr[dest_points.index(curr.loc)] = shortest(tree[curr.pt[0]][curr.pt[1]],[tree[curr.pt[0]][curr.pt[1]]])
+        # if we have reached a dest, store the minimum path taken in path_arr
+        if curr.loc in dest:
+            dist_arr[dest.index(curr.loc)] = curr.dist
+            path_arr[dest.index(curr.loc)] = shortest(tree[curr.pt[0]][curr.pt[1]],[tree[curr.pt[0]][curr.pt[1]]])
         
         # otherwise enqueue the adjacent cells
         for i in range(4):
