@@ -118,7 +118,7 @@ class Cell extends Component {
 
     render() {
         return(
-            <div className="cell" onClick={this.checkToggle} style={{backgroundColor:this.state.cellColor}}>{this.props.val}</div>
+            <div className="cell" onClick={this.checkToggle} style={{backgroundColor:this.state.cellColor}}>{this.props.pos}</div>
         )
     }
 }

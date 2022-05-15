@@ -1,4 +1,4 @@
-import {QueueNode} from './../classes/QueueNode.js'
+import { QueueNode } from './../classes/QueueNode.js'
 
 // recursion to find the minimum path from the source to a destination
 function shortestPath(node, path) {
@@ -14,15 +14,9 @@ function isValid(row, col, n, m) {
     return row >= 0 && row < n && col >= 0  && col < m;
 }
 
-// helper to convert dictionary of points to array of dictionary values
-function convertPoints(pointDict) {
-    let arr = []
-    for (let key in pointDict) {
-        if (pointDict.hasOwnProperty(key)) {
-            arr.push(pointDict[key]);
-        }
-    }
-    return arr
+// helper to convert map of points to array map vlaues
+function convertPoints(pointsMap) {
+    return Array.from(pointsMap.values())
 }
 
 // helper to check if object is in another object, and return index if it is, else return -1
@@ -31,6 +25,20 @@ function indexOfDest(dest, curr) {
     const _ = require('lodash');
     for (let i=0; i<dest.length; i++) {
         if (_.isEqual(dest[i],curr.loc)) {
+            return i
+        }
+    }
+    return -1
+}
+
+// helper method to find the position of the selected point in the points array
+function findPos(arr, loc) {
+    if (!arr || !loc){
+        return -1
+    }
+    const _ = require('lodash');
+    for (let i=0; i<arr.length; i++) {
+        if (_.isEqual(arr[i],loc)) {
             return i
         }
     }
@@ -124,4 +132,4 @@ function adjMatricies(maze, points) {
 
 }
 
-export {convertPoints, adjMatricies}
+export {convertPoints, adjMatricies, indexOfDest, findPos}

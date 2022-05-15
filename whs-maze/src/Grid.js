@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { convertPoints, findPos } from "./helpers/maze";
 import Cell from "./Cell";
 import Result from "./Result";
 import 'bootstrap/dist/css/bootstrap.css';
@@ -27,9 +28,14 @@ class Grid extends Component {
             currentButton: null,
         }
 
-        // dictionary of destinations to visit
-        // dictionary is needed so that if we can remove a destination by key if we need to
-        this.points = {}
+        // Map of destinations to visit
+        // Map is needed so that if we can remove a destination by key if we need to, and it maintains insertion order, dicitonaries do not
+        this.points = new Map()
+
+        // array of the values of the this.points Map. 
+        // we need this to track the index of a node in this list, to designate a selected node as node 0,1,2,3 etc.
+        // this works because insertion of non-int keys in ES2015 and later maintain insertion order
+        this.pointsArr = null
 
         // array for start and end point
         // a single start point is required, end point is optional
@@ -57,18 +63,20 @@ class Grid extends Component {
         this.forceUpdate()
     }
 
-    // add destination points to a dictionary
+    // add destination points to a Map
     // remove if a point is unselected
+    // convert Map of points into array of Map values. Need to do this so we can track ind of node
     // utilized in child component
     togglePoint(row, col, action) {
         let key = row.toString() + col.toString()
         if (action === "add") {
-            this.points[key] = [row,col]
-            this.forceUpdate()
+            this.points.set(key,[row,col])
         } else if (action === "remove") {
-            delete this.points[key]
-            this.forceUpdate()
+            this.points.delete(key)
         }
+        
+        this.pointsArr = convertPoints(this.points)
+        this.forceUpdate()
     }
 
     // managing the start point
@@ -76,11 +84,10 @@ class Grid extends Component {
     toggleStart(row, col, action) {
         if (action === "add") {
             this.start = [row,col]
-            this.forceUpdate()
         } else if (action === "remove") {
             this.start = []
-            this.forceUpdate()
         }
+        this.forceUpdate()
     }
 
     // managing the end point
@@ -88,11 +95,10 @@ class Grid extends Component {
     toggleEnd(row, col, action) {
         if (action === "add") {
             this.end = [row,col]
-            this.forceUpdate()
         } else if (action === "remove") {
             this.end = []
-            this.forceUpdate()
         }
+        this.forceUpdate()
     }
 
     // render the grid
@@ -101,7 +107,7 @@ class Grid extends Component {
         return (
             <div>
                 <div>{this.state.currentButton}</div>
-                <ToggleButtonGroup type="radio" name="options" onChange={(event) => {this.setCurrentButton(event);}}>
+                <ToggleButtonGroup type="radio" name="options" onChange={(event) => {this.setCurrentButton(event)}}>
                     <ToggleButton id="one" value={"Points"}>Place/Remove Points</ToggleButton>
                     <ToggleButton id="two" value={"Walls"}>Place/Remove Walls</ToggleButton>
                     <ToggleButton id="three" value={"Start"}>Set Start</ToggleButton>
@@ -112,13 +118,25 @@ class Grid extends Component {
                     {this.maze.map((row,rowInd) => {
                         return (
                             <div className="gridrow" key={rowInd}>
-                                {row.map((value,colInd) => <Cell val={this.maze[rowInd][colInd]} key={[rowInd,colInd]} ind={[rowInd,colInd]} currentButton={this.state.currentButton} toggleWall={this.toggleWall} togglePoint={this.togglePoint} toggleStart={this.toggleStart} toggleEnd={this.toggleEnd} s={this.start} e={this.end}/>)}
+                                {row.map((value,colInd) => <Cell 
+                                val={this.maze[rowInd][colInd]} 
+                                key={[rowInd,colInd]} 
+                                ind={[rowInd,colInd]}
+                                pos={findPos(this.pointsArr, [rowInd,colInd])}
+                                currentButton={this.state.currentButton}
+                                s={this.start}
+                                e={this.end}
+                                toggleWall={this.toggleWall} 
+                                togglePoint={this.togglePoint} 
+                                toggleStart={this.toggleStart} 
+                                toggleEnd={this.toggleEnd} 
+                                />)}
                             </div>
                         )
                     })}
                 </div>
 
-                <Result maze={this.maze} points={this.points} start={this.start} end={this.end}/>
+                <Result maze={this.maze} pointsArr={this.pointsArr} start={this.start} end={this.end}/>
             </div>
         )
     }

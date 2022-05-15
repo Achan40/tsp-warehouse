@@ -3,10 +3,11 @@ function runTSP(graph, startNode, endNode=null) {
 
 
     // adding a dummy node if an ending node is supplied
-    if (endNode !== null) {
+    if (typeof(endNode) === 'number'){
         graph = addDummy(graph, startNode, endNode);
+    } else {
+        console.log('Ending node not selected!')
     }
-    console.log(graph)
 
     // store all nodes except the starting(/ending) because those are the nodes that we want to traverse
     let nodes = []
@@ -53,7 +54,6 @@ function runTSP(graph, startNode, endNode=null) {
         }
     }
 
-    console.log(minCost, minPath)
     return [minCost, minPath]
 }
 
