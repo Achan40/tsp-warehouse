@@ -34,7 +34,7 @@ def tsp_naive(graph, start_node, end_node=None):
             k = j
         
         # add the cost to return to initial node
-        # this step may not be needed if we wanted to arbitraily set a start_node and end point
+        # this step may not be needed if we want to set a start_node and end point
         curr_cost += graph[k][start_node]
         curr_path.append(start_node)
 

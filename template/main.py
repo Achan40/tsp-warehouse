@@ -23,7 +23,7 @@ if __name__ == "__main__":
     start = timer()
 
     # nodes that we want to reach in the maze
-    dest = [[3,3],[0,0]]
+    dest = [[3,3],[0,0],[1,2],[2,2]]
 
     # adjacency matrix of the nodes
     # the graph is a completely connected undirected graph
