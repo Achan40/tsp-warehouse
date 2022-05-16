@@ -5,10 +5,8 @@ function runTSP(graph, startNode, endNode=null) {
     // adding a dummy node if an ending node is supplied
     if (typeof(endNode) === 'number'){
         graph = addDummy(graph, startNode, endNode);
-    } else {
-        console.log('Ending node not selected!')
-    }
-
+    } 
+    
     // store all nodes except the starting(/ending) because those are the nodes that we want to traverse
     let nodes = []
     for (let i=0; i<graph.length; i++) {
