@@ -31,7 +31,7 @@ function indexOfDest(dest, curr) {
     return -1
 }
 
-// helper method to find the position of the selected point in the points array
+// helper function to find the position of the selected point in the points array
 function findPos(arr, loc) {
     if (!arr || !loc){
         return -1

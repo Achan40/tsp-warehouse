@@ -11,7 +11,13 @@ class Result extends Component {
             missingStart: false,
             missingEnd: false,
             tooShort: false,
+            unreachableNode: false,
             displayResults: false,
+
+            adjMat: null,
+            adjPathMat: null,
+            pathDist: null,
+            pathMat: null,
         }
 
         // bind custom methods
@@ -49,14 +55,31 @@ class Result extends Component {
             this.setState({tooShort:false})
         }
 
-        // restult of adjMatricies is an adjacency matrix with distanct values, and an adjancecy matrix with the path taken
-        let res = adjMatricies(maze, pointsArr)
-        // console.log(res[0])
-        // console.log(res[1])
+        // restult of adjMatricies is an adjacency matrix with distance values, and an adjancecy matrix with the path taken
+        let adj = adjMatricies(maze, pointsArr)
+
+        // TSP requires that all nodes are reachable
+        // we check if -1 is found in the adjacency matrix, indicating a node is unreachable
+        // findPos returns index if value is found in an array, otherwise will return -1
+        // if there is an unreachable point, throw error
+        let blockedChecker = findPos(adj[0][0], -1)
+        if (blockedChecker !== -1) {
+            this.setState({unreachableNode:true})
+            return null
+        } else if (blockedChecker === -1) {
+            this.setState({unreachableNode:false})
+        }
 
         // takes in adjacency matrix of the destired points, and the index of start and end nodes (optional, if no end node is supplied, start node will be considered the end node automatically)
-        let fin = runTSP(res[0],start,end)
-        console.log(fin[0],fin[1])
+        let fin = runTSP(adj[0],start,end)
+
+        // store the results in the state of the component
+        this.setState({
+            adjMat: adj[0],
+            adjPathMat: adj[1],
+            pathDist: fin[0],
+            pathMat: fin[1]
+        })
 
         // if all validations have passed, display the results
         this.setState({displayResults:true})
@@ -69,7 +92,8 @@ class Result extends Component {
                 {this.state.missingStart ? <div>Please select a starting node!</div> : null}
                 {this.state.missingEnd ? <div>Ending node not selected. Default ending node will be set to starting node.</div> : null}
                 {this.state.tooShort ? <div>Please select more than one point.</div> : null}
-                {this.state.displayResults ? <div>RESULTS</div> : null}
+                {this.state.unreachableNode ? <div>One or more of the selected points cannot be reached! Please fix before results can be displayed.</div> : null}
+                {this.state.displayResults ? <div>Total distance: {this.state.pathDist}. Optimal path: {this.state.pathMat}</div> : null}
             </div>
         )
     }
