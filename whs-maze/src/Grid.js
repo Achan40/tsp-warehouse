@@ -1,10 +1,11 @@
 import { Component } from "react";
-import { convertPoints, findPos } from "./helpers/maze";
+import { convertPoints } from "./helpers/adjmat.js";
+import { findPos } from "./helpers/extra.js";
 import Cell from "./Cell";
 import Result from "./Result";
 import 'bootstrap/dist/css/bootstrap.css';
-import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
-import ToggleButton from 'react-bootstrap/ToggleButton'
+import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
+import ToggleButton from 'react-bootstrap/ToggleButton';
 
 class Grid extends Component {
     constructor() {
@@ -21,26 +22,26 @@ class Grid extends Component {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]]
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]];
 
 
         this.state = {
             currentButton: null,
-        }
+        };
 
         // Map of destinations to visit
         // Map is needed so that if we can remove a destination by key if we need to, and it maintains insertion order, dicitonaries do not
-        this.points = new Map()
+        this.points = new Map();
 
         // array of the values of the this.points Map. 
         // we need this to track the index of a node in this list, to designate a selected node as node 0,1,2,3 etc.
         // this works because insertion of non-int keys in ES2015 and later maintain insertion order
-        this.pointsArr = null
+        this.pointsArr = null;
 
         // array for start and end point
         // a single start point is required, end point is optional
-        this.start = []
-        this.end = []
+        this.start = [];
+        this.end = [];
 
         // bind custom methods
         this.setCurrentButton = this.setCurrentButton.bind(this);
@@ -52,15 +53,15 @@ class Grid extends Component {
 
     // setting the current toggled button
     setCurrentButton(val) {
-        this.setState({currentButton: val})
+        this.setState({currentButton: val});
     }
 
     // changing state of parent component based on event in child component
     // passing the toggleCell method to child component, which will then trigger (and check validations) based on an event
     // utilized in child component
     toggleWall(row, col, val) {
-        this.maze[row][col] = val
-        this.forceUpdate()
+        this.maze[row][col] = val;
+        this.forceUpdate();
     }
 
     // add destination points to a Map
@@ -68,37 +69,37 @@ class Grid extends Component {
     // convert Map of points into array of Map values. Need to do this so we can track ind of node
     // utilized in child component
     togglePoint(row, col, action) {
-        let key = row.toString() + col.toString()
+        let key = row.toString() + col.toString();
         if (action === "add") {
-            this.points.set(key,[row,col])
+            this.points.set(key,[row,col]);
         } else if (action === "remove") {
-            this.points.delete(key)
+            this.points.delete(key);
         }
         
-        this.pointsArr = convertPoints(this.points)
-        this.forceUpdate()
+        this.pointsArr = convertPoints(this.points);
+        this.forceUpdate();
     }
 
     // managing the start point
     // utilized in child component
     toggleStart(row, col, action) {
         if (action === "add") {
-            this.start = [row,col]
+            this.start = [row,col];
         } else if (action === "remove") {
-            this.start = []
+            this.start = [];
         }
-        this.forceUpdate()
+        this.forceUpdate();
     }
 
     // managing the end point
     // utilized in child component
     toggleEnd(row, col, action) {
         if (action === "add") {
-            this.end = [row,col]
+            this.end = [row,col];
         } else if (action === "remove") {
-            this.end = []
+            this.end = [];
         }
-        this.forceUpdate()
+        this.forceUpdate();
     }
 
     // render the grid
@@ -142,4 +143,4 @@ class Grid extends Component {
     }
 }
 
-export default Grid
+export default Grid;

@@ -1,4 +1,4 @@
-import { QueueNode } from './../classes/QueueNode.js'
+import { QueueNode } from '../classes/QueueNode.js';
 
 // recursion to find the minimum path from the source to a destination
 function shortestPath(node, path) {
@@ -16,7 +16,7 @@ function isValid(row, col, n, m) {
 
 // helper to convert map of points to array map vlaues
 function convertPoints(pointsMap) {
-    return Array.from(pointsMap.values())
+    return Array.from(pointsMap.values());
 }
 
 // helper to check if object is in another object, and return index if it is, else return -1
@@ -25,34 +25,20 @@ function indexOfDest(dest, curr) {
     const _ = require('lodash');
     for (let i=0; i<dest.length; i++) {
         if (_.isEqual(dest[i],curr.loc)) {
-            return i
+            return i;
         }
     }
-    return -1
-}
-
-// helper function to find the position of the selected point in the points array
-function findPos(arr, loc) {
-    if (!arr || !loc){
-        return -1
-    }
-    const _ = require('lodash');
-    for (let i=0; i<arr.length; i++) {
-        if (_.isEqual(arr[i],loc)) {
-            return i
-        }
-    }
-    return -1
+    return -1;
 }
 
 // Breadth first search traversal with multiple desired points, essentially Dijstra's Shortest path, but for a binary maze.
 function bfsMulti(maze, src, dest) {
-    let n = maze.length
-    let m = maze[0].length
+    let n = maze.length;
+    let m = maze[0].length;
     
     // used to get the row and col num of the 4 neighbors of a cell
-    let row_num = [-1, 0, 0, 1]
-    let col_num = [0, -1, 1, 0]
+    let row_num = [-1, 0, 0, 1];
+    let col_num = [0, -1, 1, 0];
 
     // initiate array to store the distance of destinations to the source node
     // initiate array to store the minimum path traveled to reach a destination
@@ -83,7 +69,7 @@ function bfsMulti(maze, src, dest) {
     // mark the source cell as visited
     visited[src[0]][src[1]] = true;
 
-    q.push(s)
+    q.push(s);
 
     // perform BFS starting from src until there are no adjacent cells remaining
     while (q.length > 0) {
@@ -93,7 +79,7 @@ function bfsMulti(maze, src, dest) {
         
         // if we have reached a dest, store the minimum path cost in distArr
         // if we have reached a dest, store the minimum path taken in pathArr
-        let ind = indexOfDest(dest,curr)
+        let ind = indexOfDest(dest,curr);
         
 
         if (ind !== -1) {
@@ -115,7 +101,7 @@ function bfsMulti(maze, src, dest) {
         }
     }
 
-    return [distArr, pathArr]
+    return [distArr, pathArr];
 }
 
 // Generate the adjacency matrix, and adjacency matrix that contains the paths
@@ -128,8 +114,8 @@ function adjMatricies(maze, points) {
         adjMat.push(res[0]);
         pathMat.push(res[1]);
     }
-    return [adjMat, pathMat]
+    return [adjMat, pathMat];
 
 }
 
-export {convertPoints, adjMatricies, indexOfDest, findPos}
+export {convertPoints, adjMatricies};

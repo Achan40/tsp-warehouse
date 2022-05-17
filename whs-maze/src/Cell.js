@@ -8,7 +8,7 @@ class Cell extends Component {
             startPoint: false,
             endPoint: false,
             cellColor: "white"
-        }
+        };
 
         // bind custom methods
         this.checkToggle = this.checkToggle.bind(this);
@@ -18,10 +18,10 @@ class Cell extends Component {
     // undo all state changes of an active cell
     resetCell(r,c) {
         if (this.state.startPoint === true) {
-            this.props.toggleStart(r,c,'remove')
+            this.props.toggleStart(r,c,'remove');
         }
         if (this.state.endPoint === true) {
-            this.props.toggleEnd(r,c,'remove')
+            this.props.toggleEnd(r,c,'remove');
         }
         this.setState({ 
             activePoint: false,
@@ -29,7 +29,7 @@ class Cell extends Component {
             endPoint: false,
             cellColor: "white"
         });
-        this.props.togglePoint(r,c,'remove')
+        this.props.togglePoint(r,c,'remove');
     }
 
     // Perform different actions based on what current toggle is active
@@ -42,13 +42,13 @@ class Cell extends Component {
         // walls can only be added on cells that are not active
         if (this.props.currentButton === "Walls") {
             if (this.state.activePoint === true) {
-                console.log("remove active point before placing a wall!")
+                console.log("remove active point before placing a wall!");
             } else if (this.props.val === 0) {
                 this.props.toggleWall(r,c,1);
-                this.setState({ cellColor:"black" })
+                this.setState({ cellColor:"black" });
             } else if (this.props.val === 1) {
-                this.props.toggleWall(r,c,0)
-                this.setState({ cellColor:"white" })
+                this.props.toggleWall(r,c,0);
+                this.setState({ cellColor:"white" });
             }
         }
         
@@ -56,13 +56,13 @@ class Cell extends Component {
         // points can only added on cells that are not active and are not already walls
         if (this.props.currentButton === "Points") {
             if (this.props.val === 1) {
-                console.log("remove wall before placing a point!")
+                console.log("remove wall before placing a point!");
             } else if (this.props.val === 0 && this.state.activePoint === false) {
-                this.props.togglePoint(r,c,'add')
-                this.setState({ cellColor:"blue" })
-                this.setState({ activePoint:true })
+                this.props.togglePoint(r,c,'add');
+                this.setState({ cellColor:"blue" });
+                this.setState({ activePoint:true });
             } else if (this.state.activePoint === true) {
-                this.resetCell(r,c)
+                this.resetCell(r,c);
             }
         }
         
@@ -72,21 +72,21 @@ class Cell extends Component {
         if (this.props.currentButton === "Start") {
             if (this.state.activePoint === true && this.state.startPoint === false  && this.props.s.length < 1) {
                 if (this.state.endPoint === true) {
-                    this.props.toggleEnd(r,c,'remove')
-                    this.props.toggleStart(r,c,'add')
-                    this.setState({ cellColor:"green" })
-                    this.setState({ endPoint:false })
-                    this.setState({ startPoint:true })
+                    this.props.toggleEnd(r,c,'remove');
+                    this.props.toggleStart(r,c,'add');
+                    this.setState({ cellColor:"green" });
+                    this.setState({ endPoint:false });
+                    this.setState({ startPoint:true });
                 } else {
-                    this.props.toggleStart(r,c,'add')
-                    this.setState({ cellColor:"green" })
-                    this.setState({ startPoint:true })
+                    this.props.toggleStart(r,c,'add');
+                    this.setState({ cellColor:"green" });
+                    this.setState({ startPoint:true });
                 }
             } else if (this.state.startPoint === true) {
-                this.resetCell(r,c)
-                this.props.togglePoint(r,c,'add')
-                this.setState({ cellColor:"blue" })
-                this.setState({ activePoint:true })
+                this.resetCell(r,c);
+                this.props.togglePoint(r,c,'add');
+                this.setState({ cellColor:"blue" });
+                this.setState({ activePoint:true });
             }
         }
         
@@ -97,21 +97,21 @@ class Cell extends Component {
         if (this.props.currentButton === "End") {
             if (this.state.activePoint === true && this.state.endPoint === false && this.props.e.length < 1) {
                 if (this.state.startPoint === true) {
-                    this.props.toggleStart(r,c,'remove')
-                    this.props.toggleEnd(r,c,'add')
-                    this.setState({ cellColor:"red" })
-                    this.setState({ startPoint:false })
-                    this.setState({ endPoint:true })
+                    this.props.toggleStart(r,c,'remove');
+                    this.props.toggleEnd(r,c,'add');
+                    this.setState({ cellColor:"red" });
+                    this.setState({ startPoint:false });
+                    this.setState({ endPoint:true });
                 } else {
-                    this.props.toggleEnd(r,c,'add')
-                    this.setState({ cellColor:"red" })
-                    this.setState({ endPoint:true })
+                    this.props.toggleEnd(r,c,'add');
+                    this.setState({ cellColor:"red" });
+                    this.setState({ endPoint:true });
                 }
             } else if (this.state.endPoint === true) {
-                this.resetCell(r,c)
-                this.props.togglePoint(r,c,'add')
-                this.setState({ cellColor:"blue" })
-                this.setState({ activePoint:true })
+                this.resetCell(r,c);
+                this.props.togglePoint(r,c,'add');
+                this.setState({ cellColor:"blue" });
+                this.setState({ activePoint:true });
             }
         }
     }
@@ -123,4 +123,4 @@ class Cell extends Component {
     }
 }
 
-export default Cell
+export default Cell;
