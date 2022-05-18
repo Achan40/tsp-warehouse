@@ -136,7 +136,6 @@ class Grid extends Component {
                         )
                     })}
                 </div>
-
                 <Result maze={this.maze} pointsArr={this.pointsArr} start={this.start} end={this.end}/>
             </div>
         )

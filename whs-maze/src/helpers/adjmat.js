@@ -6,7 +6,7 @@ function shortestPath(node, path) {
         path.push(node.prev.loc);
         shortestPath(node.prev, path);
     }
-    return path.reverse();
+    return path;
 }
 
 // check if a cell is within the bounds of the maze
@@ -84,7 +84,7 @@ function bfsMulti(maze, src, dest) {
 
         if (ind !== -1) {
             distArr[ind] = curr.dist;
-            pathArr[ind] = shortestPath(tree[curr.loc[0]][curr.loc[1]],[]);
+            pathArr[ind] = shortestPath(tree[curr.loc[0]][curr.loc[1]],[]).reverse();
         }
 
         for (let i=0; i<4; i++) {

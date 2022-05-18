@@ -2,6 +2,7 @@ import { Component } from "react";
 import { adjMatricies } from "./helpers/adjmat.js";
 import { findPos } from "./helpers/extra.js";
 import { runTSP } from "./helpers/tsp.js";
+import ResultPaths from "./ResultPaths.js";
 import Button from 'react-bootstrap/Button';
 
 class Result extends Component {
@@ -17,12 +18,15 @@ class Result extends Component {
 
             adjMat: null,
             adjPathMat: null,
-            pathDist: null,
-            pathMat: null,
+            nodeDist: null,
+            nodePaths: null,
+
+            resPaths: null
         };
 
         // bind custom methods
         this.runTSPonClick = this.runTSPonClick.bind(this);
+        this.findPaths = this.findPaths.bind(this);
     }
 
     runTSPonClick(maze,pointsArr,start,end) {
@@ -78,23 +82,44 @@ class Result extends Component {
         this.setState({
             adjMat: adj[0],
             adjPathMat: adj[1],
-            pathDist: fin[0],
-            pathMat: fin[1]
+            nodeDist: fin[0],
+            nodePaths: fin[1]
         });
+
+        // find the optimal path, generate using adjPathMat(adj matrix where values are the paths between two nodes) and nodePaths (optimal node order traversal)
+        this.findPaths(adj[1], fin[1]);
 
         // if all validations have passed, display the results
         this.setState({displayResults:true});
     }
 
+    // get a list of the optimal paths to travel
+    findPaths (adjPathMat, nodePaths) {
+        // initiate the array of paths we traverse during TSP
+        let tmp = [];
+        
+        // find the cells we traverse using adjPathMat, which is an adjacency matrix where each value is an array of paths from one node to the next
+        let initial = nodePaths[0];
+        for (let i=1; i<nodePaths.length; i++) {
+            tmp.push(adjPathMat[initial][nodePaths[i]]);
+            initial = nodePaths[i];
+        }
+        this.setState({resPaths: tmp})
+    }
+
     render() {
-        return(
+        console.log(this.state.resPaths)
+        return (
             <div>
-                <Button onClick={() => this.runTSPonClick(this.props.maze, this.props.pointsArr, this.props.start, this.props.end)}>Run TSP</Button>
-                {this.state.missingStart ? <div>Please select a starting node!</div> : null}
-                {this.state.missingEnd ? <div>Ending node not selected. Default ending node will be set to starting node.</div> : null}
-                {this.state.tooShort ? <div>Please select more than one point.</div> : null}
-                {this.state.unreachableNode ? <div>One or more of the selected points cannot be reached! Please fix before results can be displayed.</div> : null}
-                {this.state.displayResults ? <div>Total distance: {this.state.pathDist}. Optimal path: {this.state.pathMat}</div> : null}
+                <div>
+                    <Button onClick={() => this.runTSPonClick(this.props.maze, this.props.pointsArr, this.props.start, this.props.end)}>Run TSP</Button>
+                    {this.state.missingStart ? <div>Please select a starting node!</div> : null}
+                    {this.state.missingEnd ? <div>Ending node not selected. Default ending node will be set to starting node.</div> : null}
+                    {this.state.tooShort ? <div>Please select more than one point.</div> : null}
+                    {this.state.unreachableNode ? <div>One or more of the selected points cannot be reached! Please fix before results can be displayed.</div> : null}
+                    {this.state.displayResults ? <div>Total distance: {this.state.nodeDist}. Optimal path: {this.state.nodePaths}</div> : null}
+                </div>
+                {this.state.displayResults ? <ResultPaths resPaths={this.resPaths}/> : null}
             </div>
         )
     }
