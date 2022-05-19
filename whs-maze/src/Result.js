@@ -21,6 +21,7 @@ class Result extends Component {
             nodeDist: null,
             nodePaths: null,
 
+            resNodes: null,
             resPaths: null
         };
 
@@ -97,18 +98,22 @@ class Result extends Component {
     findPaths (adjPathMat, nodePaths) {
         // initiate the array of paths we traverse during TSP
         let tmp = [];
+        let tmp2 = [];
         
         // find the cells we traverse using adjPathMat, which is an adjacency matrix where each value is an array of paths from one node to the next
         let initial = nodePaths[0];
         for (let i=1; i<nodePaths.length; i++) {
             tmp.push(adjPathMat[initial][nodePaths[i]]);
+            tmp2.push([initial,nodePaths[i]])
             initial = nodePaths[i];
         }
-        this.setState({resPaths: tmp})
+        this.setState({
+            resNodes: tmp2,
+            resPaths: tmp
+        })
     }
 
     render() {
-        console.log(this.state.resPaths)
         return (
             <div>
                 <div>
@@ -119,7 +124,7 @@ class Result extends Component {
                     {this.state.unreachableNode ? <div>One or more of the selected points cannot be reached! Please fix before results can be displayed.</div> : null}
                     {this.state.displayResults ? <div>Total distance: {this.state.nodeDist}. Optimal path: {this.state.nodePaths}</div> : null}
                 </div>
-                {this.state.displayResults ? <ResultPaths resPaths={this.resPaths}/> : null}
+                {this.state.displayResults ? <ResultPaths resNodes={this.state.resNodes} resPaths={this.state.resPaths}/> : null}
             </div>
         )
     }
