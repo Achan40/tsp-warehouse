@@ -9,18 +9,20 @@ class ResultPaths extends Component {
         this.hidePath = this.hidePath.bind(this);
     }
 
-    showPath() {
-        let tmp = document.getElementById('cell00')
-        tmp.style.borderStyle = 'solid'
-        tmp.style.borderColor = 'pink'
-        console.log('mouse enter')
+    showPath(path) {
+        for (let i=0; i<path.length; i++) {
+            let curr = document.getElementById('cell'+path[i][0]+path[i][1]);
+            curr.style.borderStyle = 'solid'
+            curr.style.borderColor = 'pink'
+        }
     }
 
-    hidePath() {
-        let tmp = document.getElementById('cell00')
-        tmp.style.borderStyle = ''
-        tmp.style.borderColor = ''
-        console.log('mouse out')
+    hidePath(path) {
+        for (let i=0; i<path.length; i++) {
+            let curr = document.getElementById('cell'+path[i][0]+path[i][1]);
+            curr.style.borderStyle = ''
+            curr.style.borderColor = ''
+        }
     }
 
     // if validations pass, component will render
@@ -29,8 +31,8 @@ class ResultPaths extends Component {
             <div>
                 {this.props.resPaths.map((path,ind) => {
                     return (
-                        <Button key={ind} onMouseEnter={this.showPath} onMouseLeave={this.hidePath}>
-                            {this.props.resNodes[ind][0]} -> {this.props.resNodes[ind][1]} : {path}
+                        <Button key={ind} onMouseEnter={() => this.showPath(path)} onMouseLeave={() => this.hidePath(path)}>
+                            {this.props.resNodes[ind][0]} → {this.props.resNodes[ind][1]} : {path}
                         </Button>
                     )
                 })}
