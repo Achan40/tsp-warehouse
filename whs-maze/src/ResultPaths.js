@@ -9,6 +9,7 @@ class ResultPaths extends Component {
         this.hidePath = this.hidePath.bind(this);
     }
 
+    // easiest way to show path. Modify cell by id, using a style element that does not override a previously used style
     showPath(path) {
         for (let i=0; i<path.length; i++) {
             let curr = document.getElementById('cell'+path[i][0]+path[i][1]);
@@ -17,6 +18,7 @@ class ResultPaths extends Component {
         }
     }
 
+    // undoing the changes made in the showPath method
     hidePath(path) {
         for (let i=0; i<path.length; i++) {
             let curr = document.getElementById('cell'+path[i][0]+path[i][1]);
