@@ -88,25 +88,37 @@ class Result extends Component {
         });
 
         // find the optimal path, generate using adjPathMat(adj matrix where values are the paths between two nodes) and nodePaths (optimal node order traversal)
-        this.findPaths(adj[1], fin[1]);
+        this.findPaths(adj[1], fin[1], end);
 
         // if all validations have passed, display the results
         this.setState({displayResults:true});
     }
 
     // get a list of the optimal paths to travel
-    findPaths (adjPathMat, nodePaths) {
+    findPaths (adjPathMat, nodePaths, end) {
         // initiate the array of paths we traverse during TSP
         let tmp = [];
         let tmp2 = [];
         
         // find the cells we traverse using adjPathMat, which is an adjacency matrix where each value is an array of paths from one node to the next
         let initial = nodePaths[0];
-        for (let i=1; i<nodePaths.length; i++) {
-            tmp.push(adjPathMat[initial][nodePaths[i]]);
-            tmp2.push([initial,nodePaths[i]])
-            initial = nodePaths[i];
+        
+        // if end node array is selected, the nodePaths array will have two extra entries at the end
+        // the dummy node and the start node. We must account for these placeholders.
+        if (end) {
+            for (let i=1; i<nodePaths.length-2; i++) {
+                tmp.push(adjPathMat[initial][nodePaths[i]]);
+                tmp2.push([initial,nodePaths[i]])
+                initial = nodePaths[i];
+            }
+        } else {
+            for (let i=1; i<nodePaths.length; i++) {
+                tmp.push(adjPathMat[initial][nodePaths[i]]);
+                tmp2.push([initial,nodePaths[i]])
+                initial = nodePaths[i];
+            }
         }
+        
         this.setState({
             resNodes: tmp2,
             resPaths: tmp
