@@ -1,14 +1,20 @@
 import Grid from './Grid';
+import Intro from './Intro';
+import Navbar from 'react-bootstrap/Navbar';
+import Container from 'react-bootstrap/Container'
 import './styles/App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <div className="App">
-          <Grid/>
-        </div>
-      </header>
+      <Navbar>
+        <Container>
+          <Navbar.Brand className='tsp-brand justify-content-right'>tsp-warehouse</Navbar.Brand>
+        </Container>
+      </Navbar>
+
+      <Intro/>
+      <Grid/>
     </div>
   );
 }

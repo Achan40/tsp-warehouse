@@ -3,9 +3,13 @@ import { convertPoints } from "./helpers/adjmat.js";
 import { findPos } from "./helpers/extra.js";
 import Cell from "./Cell";
 import Result from "./Result";
-import 'bootstrap/dist/css/bootstrap.css';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
+import Container from 'react-bootstrap/Container'
+import Card from 'react-bootstrap/Card'
+import 'bootstrap/dist/css/bootstrap.css';
+import './styles/Grid.css';
+
 
 class Grid extends Component {
     constructor() {
@@ -106,38 +110,44 @@ class Grid extends Component {
     // use a nested loop to generate each cell, set the key of each cell to the index of the cell in the initial array
     render() {
         return (
-            <div>
-                <div>{this.state.currentButton}</div>
-                <ToggleButtonGroup type="radio" name="options" onChange={(event) => {this.setCurrentButton(event)}}>
-                    <ToggleButton id="one" value={"Points"}>Place/Remove Points</ToggleButton>
-                    <ToggleButton id="two" value={"Walls"}>Place/Remove Walls</ToggleButton>
-                    <ToggleButton id="three" value={"Start"}>Set Start</ToggleButton>
-                    <ToggleButton id="four" value={"End"}>Set End</ToggleButton>
-                </ToggleButtonGroup>
+            <Container>
+                <Card>
+                    <Card.Body>
+                        <div>
+                            <div>{this.state.currentButton}</div>
+                            <ToggleButtonGroup type="radio" name="options" onChange={(event) => {this.setCurrentButton(event)}}>
+                                <ToggleButton id="one" value={"Points"}>Place/Remove Points</ToggleButton>
+                                <ToggleButton id="two" value={"Walls"}>Place/Remove Walls</ToggleButton>
+                                <ToggleButton id="three" value={"Start"}>Set Start</ToggleButton>
+                                <ToggleButton id="four" value={"End"}>Set End</ToggleButton>
+                            </ToggleButtonGroup>
 
-                <div className="grid">
-                    {this.maze.map((row,rowInd) => {
-                        return (
-                            <div className="gridrow" key={rowInd}>
-                                {row.map((value,colInd) => <Cell 
-                                val={this.maze[rowInd][colInd]} 
-                                key={[rowInd,colInd]} 
-                                ind={[rowInd,colInd]}
-                                pos={findPos(this.pointsArr, [rowInd,colInd])}
-                                currentButton={this.state.currentButton}
-                                s={this.start}
-                                e={this.end}
-                                toggleWall={this.toggleWall} 
-                                togglePoint={this.togglePoint} 
-                                toggleStart={this.toggleStart} 
-                                toggleEnd={this.toggleEnd} 
-                                />)}
+                            <div className="grid">
+                                {this.maze.map((row,rowInd) => {
+                                    return (
+                                        <div className="gridrow" key={rowInd}>
+                                            {row.map((value,colInd) => <Cell 
+                                            val={this.maze[rowInd][colInd]} 
+                                            key={[rowInd,colInd]} 
+                                            ind={[rowInd,colInd]}
+                                            pos={findPos(this.pointsArr, [rowInd,colInd])}
+                                            currentButton={this.state.currentButton}
+                                            s={this.start}
+                                            e={this.end}
+                                            toggleWall={this.toggleWall} 
+                                            togglePoint={this.togglePoint} 
+                                            toggleStart={this.toggleStart} 
+                                            toggleEnd={this.toggleEnd} 
+                                            />)}
+                                        </div>
+                                    )
+                                })}
                             </div>
-                        )
-                    })}
-                </div>
-                <Result maze={this.maze} pointsArr={this.pointsArr} start={this.start} end={this.end}/>
-            </div>
+                            <Result maze={this.maze} pointsArr={this.pointsArr} start={this.start} end={this.end}/>
+                        </div>
+                    </Card.Body>
+                </Card>
+            </Container>
         )
     }
 }

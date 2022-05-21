@@ -105,7 +105,7 @@ class Result extends Component {
         
         // if end node array is selected, the nodePaths array will have two extra entries at the end
         // the dummy node and the start node. We must account for these placeholders.
-        if (end) {
+        if (typeof(end) === 'number') {
             for (let i=1; i<nodePaths.length-2; i++) {
                 tmp.push(adjPathMat[initial][nodePaths[i]]);
                 tmp2.push([initial,nodePaths[i]])

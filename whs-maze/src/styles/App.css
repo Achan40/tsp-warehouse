@@ -4,22 +4,11 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 20vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   /* font-size: calc(10px + 2vmin); */
-  color: rgb(160, 20, 20);
-}
-
-.grid {
-  text-align: center;
-}
-
-.cell {
-  width: 2rem;
-  height: 2rem;
-  outline: 1px solid rgba(144, 175, 175, 0.75);
-  display: inline-block;
+  color: rgb(184, 89, 89);
 }
