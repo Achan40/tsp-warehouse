@@ -131,7 +131,7 @@ class Result extends Component {
                 <div>
                     <Button onClick={() => this.runTSPonClick(this.props.maze, this.props.pointsArr, this.props.start, this.props.end)}>Run TSP</Button>
                     {this.state.missingStart ? <div>Please select a starting node!</div> : null}
-                    {this.state.missingEnd ? <div>Ending node not selected. Default ending node will be set to starting node.</div> : null}
+                    {this.state.missingEnd ? <div>Ending node not selected. Default ending node will be set to starting node if it exists.</div> : null}
                     {this.state.tooShort ? <div>Please select more than one point.</div> : null}
                     {this.state.unreachableNode ? <div>One or more of the selected points cannot be reached! Please fix before results can be displayed.</div> : null}
                     {this.state.displayResults ? <div>Total distance: {this.state.nodeDist}. Optimal path: {this.state.nodePaths}</div> : null}

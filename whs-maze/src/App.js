@@ -8,14 +8,17 @@ import './styles/App.css';
 function App() {
   return (
     <div className="App">
-      <Navbar>
+      <Navbar className='tsp-header' bg='light'>
         <Container>
           <Navbar.Brand className='tsp-brand justify-content-right'>tsp-warehouse</Navbar.Brand>
         </Container>
       </Navbar>
-      <Intro/>
-      <Grid/>
-      <Footer/>
+
+        <Intro/>
+        <Grid/>
+
+        <Footer/>
+
     </div>
   );
 }

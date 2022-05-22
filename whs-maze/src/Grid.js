@@ -28,6 +28,14 @@ class Grid extends Component {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]];
 
 
@@ -124,27 +132,30 @@ class Grid extends Component {
                                         <ToggleButton id="three" value={"Start"}>Set Start</ToggleButton>
                                         <ToggleButton id="four" value={"End"}>Set End</ToggleButton>
                                     </ToggleButtonGroup>
-                                    <div className="grid">
-                                        {this.maze.map((row,rowInd) => {
-                                            return (
-                                                <div className="gridrow" key={rowInd}>
-                                                    {row.map((value,colInd) => <Cell 
-                                                    val={this.maze[rowInd][colInd]} 
-                                                    key={[rowInd,colInd]} 
-                                                    ind={[rowInd,colInd]}
-                                                    pos={findPos(this.pointsArr, [rowInd,colInd])}
-                                                    currentButton={this.state.currentButton}
-                                                    s={this.start}
-                                                    e={this.end}
-                                                    toggleWall={this.toggleWall} 
-                                                    togglePoint={this.togglePoint} 
-                                                    toggleStart={this.toggleStart} 
-                                                    toggleEnd={this.toggleEnd} 
-                                                    />)}
-                                                </div>
-                                            )
-                                        })}
-                                    </div>
+
+                                    <Container className="grid-maze">
+                                        <div className="grid">
+                                            {this.maze.map((row,rowInd) => {
+                                                return (
+                                                    <div className="gridrow" key={rowInd}>
+                                                        {row.map((value,colInd) => <Cell 
+                                                        val={this.maze[rowInd][colInd]} 
+                                                        key={[rowInd,colInd]} 
+                                                        ind={[rowInd,colInd]}
+                                                        pos={findPos(this.pointsArr, [rowInd,colInd])}
+                                                        currentButton={this.state.currentButton}
+                                                        s={this.start}
+                                                        e={this.end}
+                                                        toggleWall={this.toggleWall} 
+                                                        togglePoint={this.togglePoint} 
+                                                        toggleStart={this.toggleStart} 
+                                                        toggleEnd={this.toggleEnd} 
+                                                        />)}
+                                                    </div>
+                                                )
+                                            })}
+                                        </div>
+                                    </Container>
                                 </Card.Body>
                             </Card>
                         </Col>

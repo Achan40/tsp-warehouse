@@ -119,7 +119,9 @@ class Cell extends Component {
 
     render() {
         return (
-            <div className="cell" id={"cell"+this.props.ind[0].toString()+this.props.ind[1].toString()} onClick={this.checkToggle} style={{backgroundColor:this.state.cellColor}}>{this.props.pos}</div>
+            <div className="cell" id={"cell"+this.props.ind[0].toString()+this.props.ind[1].toString()} onClick={this.checkToggle} style={{backgroundColor:this.state.cellColor}}>
+                <p className={this.props.pos === -1 ? "cell-text-hidden" : "cell-text"}>{this.props.pos}</p>
+            </div>
         )
     }
 }

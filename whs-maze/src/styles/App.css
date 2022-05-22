@@ -14,7 +14,7 @@
 }
 
 .cust-card {
-  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
   border-radius: 10px !important;
   text-align: center;
 }
@@ -22,4 +22,20 @@
 /* Making sure cards align correctly */
 .card {
   height: 100%;
+}
+
+/* footer styling */
+#footer-list {
+  float: right;
+  list-style: none;
+}
+
+#footer-list li {
+  padding: 2px;
+  margin: 0 10px;
+  float: left;
+}
+
+.tsp-footer {
+  margin-top: 3rem;
 }
