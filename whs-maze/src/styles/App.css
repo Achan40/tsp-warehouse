@@ -12,3 +12,14 @@
   /* font-size: calc(10px + 2vmin); */
   color: rgb(184, 89, 89);
 }
+
+.cust-card {
+  margin-bottom: 1.5rem;
+  border-radius: 10px !important;
+  text-align: center;
+}
+
+/* Making sure cards align correctly */
+.card {
+  height: 100%;
+}

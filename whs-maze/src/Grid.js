@@ -6,6 +6,8 @@ import Result from "./Result";
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import 'bootstrap/dist/css/bootstrap.css';
 import './styles/Grid.css';
@@ -110,44 +112,54 @@ class Grid extends Component {
     // use a nested loop to generate each cell, set the key of each cell to the index of the cell in the initial array
     render() {
         return (
-            <Container>
-                <Card>
-                    <Card.Body>
-                        <div>
-                            <div>{this.state.currentButton}</div>
-                            <ToggleButtonGroup type="radio" name="options" onChange={(event) => {this.setCurrentButton(event)}}>
-                                <ToggleButton id="one" value={"Points"}>Place/Remove Points</ToggleButton>
-                                <ToggleButton id="two" value={"Walls"}>Place/Remove Walls</ToggleButton>
-                                <ToggleButton id="three" value={"Start"}>Set Start</ToggleButton>
-                                <ToggleButton id="four" value={"End"}>Set End</ToggleButton>
-                            </ToggleButtonGroup>
-
-                            <div className="grid">
-                                {this.maze.map((row,rowInd) => {
-                                    return (
-                                        <div className="gridrow" key={rowInd}>
-                                            {row.map((value,colInd) => <Cell 
-                                            val={this.maze[rowInd][colInd]} 
-                                            key={[rowInd,colInd]} 
-                                            ind={[rowInd,colInd]}
-                                            pos={findPos(this.pointsArr, [rowInd,colInd])}
-                                            currentButton={this.state.currentButton}
-                                            s={this.start}
-                                            e={this.end}
-                                            toggleWall={this.toggleWall} 
-                                            togglePoint={this.togglePoint} 
-                                            toggleStart={this.toggleStart} 
-                                            toggleEnd={this.toggleEnd} 
-                                            />)}
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                            <Result maze={this.maze} pointsArr={this.pointsArr} start={this.start} end={this.end}/>
-                        </div>
-                    </Card.Body>
-                </Card>
-            </Container>
+            <div>
+                <Container>
+                    <Row>
+                        <Col>
+                            <Card bg='light' className="cust-card">
+                                <Card.Body>
+                                    <ToggleButtonGroup type="radio" name="options" onChange={(event) => {this.setCurrentButton(event)}}>
+                                        <ToggleButton id="one" value={"Points"}>Place/Remove Points</ToggleButton>
+                                        <ToggleButton id="two" value={"Walls"}>Place/Remove Walls</ToggleButton>
+                                        <ToggleButton id="three" value={"Start"}>Set Start</ToggleButton>
+                                        <ToggleButton id="four" value={"End"}>Set End</ToggleButton>
+                                    </ToggleButtonGroup>
+                                    <div className="grid">
+                                        {this.maze.map((row,rowInd) => {
+                                            return (
+                                                <div className="gridrow" key={rowInd}>
+                                                    {row.map((value,colInd) => <Cell 
+                                                    val={this.maze[rowInd][colInd]} 
+                                                    key={[rowInd,colInd]} 
+                                                    ind={[rowInd,colInd]}
+                                                    pos={findPos(this.pointsArr, [rowInd,colInd])}
+                                                    currentButton={this.state.currentButton}
+                                                    s={this.start}
+                                                    e={this.end}
+                                                    toggleWall={this.toggleWall} 
+                                                    togglePoint={this.togglePoint} 
+                                                    toggleStart={this.toggleStart} 
+                                                    toggleEnd={this.toggleEnd} 
+                                                    />)}
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                        <Col xs={12} md={4}>
+                            <Card bg='light' className="cust-card">
+                                <Card.Body>
+                                    <Result maze={this.maze} pointsArr={this.pointsArr} start={this.start} end={this.end}/>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
+                        
+                    
         )
     }
 }

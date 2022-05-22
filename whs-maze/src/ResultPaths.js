@@ -1,5 +1,4 @@
 import { Component } from "react";
-import Button from 'react-bootstrap/Button'
 
 class ResultPaths extends Component {
     constructor () {
@@ -33,9 +32,9 @@ class ResultPaths extends Component {
             <div>
                 {this.props.resPaths.map((path,ind) => {
                     return (
-                        <Button key={ind} onMouseEnter={() => this.showPath(path)} onMouseLeave={() => this.hidePath(path)}>
-                            {this.props.resNodes[ind][0]} → {this.props.resNodes[ind][1]} : {path}
-                        </Button>
+                        <div key={ind} onMouseEnter={() => this.showPath(path)} onMouseLeave={() => this.hidePath(path)}>
+                            {this.props.resNodes[ind][0]} → {this.props.resNodes[ind][1]}
+                        </div>
                     )
                 })}
             </div>
