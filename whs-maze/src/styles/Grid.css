@@ -5,3 +5,23 @@
 .grid-maze {
     margin-top: 1.5rem;
 }
+
+.toggle-select {
+    background-color: #586F6B;
+    border-color: #586F6B;
+}
+
+.toggle-select:hover {
+    background-color: #7F9183;
+    border-color: #7F9183;
+}
+
+.gen-res-button {
+    background-color: #586F6B;
+    border-color: #586F6B;
+}
+
+.gen-res-button:hover {
+    background-color: #7F9183;
+    border-color: #7F9183;
+}

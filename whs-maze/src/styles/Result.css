@@ -1,0 +1,9 @@
+.error-text {
+    font-size: large;
+    margin: 1rem;
+}
+
+.total-dist {
+    text-decoration: underline;
+    text-decoration-color: #721817;
+}

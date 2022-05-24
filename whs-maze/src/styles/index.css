@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  background-color: #DDD5D0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -10,4 +11,49 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* header styling */
+.tsp-header {
+  background-color: #7F9183;
+}
+
+.tsp-brand {
+  color: white !important;
+}
+
+/* card styling */
+.cust-card {
+  margin-top: 1.5rem;
+  border-radius: 10px !important;
+  text-align: center;
+}
+
+/* Making sure cards align correctly */
+.card {
+  height: 100%;
+}
+
+/* footer styling */
+#footer-list {
+  float: right;
+  list-style: none;
+}
+
+#footer-list li {
+  padding: 2px;
+  margin: 0 10px;
+  float: left;
+}
+
+.tsp-footer {
+  margin-top: 3rem;
+}
+
+.footer-link {
+  color: #586F6B;
+}
+
+.footer-link:hover {
+  color: #721817;
 }

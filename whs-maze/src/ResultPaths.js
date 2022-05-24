@@ -1,4 +1,5 @@
 import { Component } from "react";
+import './styles/ResultPaths.scss';
 
 class ResultPaths extends Component {
     constructor () {
@@ -8,12 +9,11 @@ class ResultPaths extends Component {
         this.hidePath = this.hidePath.bind(this);
     }
 
-    // easiest way to show path. Modify cell by id, using a style element that does not override a previously used style
+    // easiest way to show path. Modify cell by id
     showPath(path) {
         for (let i=0; i<path.length; i++) {
             let curr = document.getElementById('cell'+path[i][0]+path[i][1]);
-            curr.style.borderStyle = 'solid'
-            curr.style.borderColor = 'pink'
+            curr.style.borderColor = '#721817'
         }
     }
 
@@ -21,7 +21,6 @@ class ResultPaths extends Component {
     hidePath(path) {
         for (let i=0; i<path.length; i++) {
             let curr = document.getElementById('cell'+path[i][0]+path[i][1]);
-            curr.style.borderStyle = ''
             curr.style.borderColor = ''
         }
     }
@@ -29,11 +28,13 @@ class ResultPaths extends Component {
     // if validations pass, component will render
     render () {
         return (
-            <div>
+            <div className="path-desc">Node Traversal Path:
                 {this.props.resPaths.map((path,ind) => {
                     return (
-                        <div key={ind} onMouseEnter={() => this.showPath(path)} onMouseLeave={() => this.hidePath(path)}>
-                            {this.props.resNodes[ind][0]} → {this.props.resNodes[ind][1]}
+                        <div className="link-wrapper">
+                            <div className="path-text link hover-2" key={ind} onMouseEnter={() => this.showPath(path)} onMouseLeave={() => this.hidePath(path)}>
+                                {this.props.resNodes[ind][0]} → {this.props.resNodes[ind][1]}
+                            </div>
                         </div>
                     )
                 })}

@@ -2,8 +2,11 @@
 .cell {
     width: 2rem;
     height: 2rem;
-    outline: 1px solid rgba(144, 175, 175, 0.75);
+    outline: 1px solid #846B8A;
+    border-style: solid;
     display: inline-block;
+    color: white;
+    margin: .15rem;
 }
 
 .cell-text-hidden {

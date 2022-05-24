@@ -127,10 +127,10 @@ class Grid extends Component {
                             <Card bg='light' className="cust-card">
                                 <Card.Body>
                                     <ToggleButtonGroup type="radio" name="options" onChange={(event) => {this.setCurrentButton(event)}}>
-                                        <ToggleButton id="one" value={"Points"}>Place/Remove Points</ToggleButton>
-                                        <ToggleButton id="two" value={"Walls"}>Place/Remove Walls</ToggleButton>
-                                        <ToggleButton id="three" value={"Start"}>Set Start</ToggleButton>
-                                        <ToggleButton id="four" value={"End"}>Set End</ToggleButton>
+                                        <ToggleButton className="toggle-select" variant="secondary" id="one" value={"Points"}>Place/Remove Nodes</ToggleButton>
+                                        <ToggleButton className="toggle-select" variant="secondary" id="two" value={"Walls"}>Place/Remove Walls</ToggleButton>
+                                        <ToggleButton className="toggle-select" variant="secondary" id="three" value={"Start"}>Set Start</ToggleButton>
+                                        <ToggleButton className="toggle-select" variant="secondary" id="four" value={"End"}>Set End</ToggleButton>
                                     </ToggleButtonGroup>
 
                                     <Container className="grid-maze">

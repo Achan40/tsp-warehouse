@@ -1,0 +1,48 @@
+.path-desc {
+    font-size: large;
+    margin: .25rem
+}
+
+.path-text {
+    font-size: large;
+    margin: .25rem;
+}
+
+.link-cont {
+    position: relative;
+}
+
+.link {
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
+    padding: 0;
+    color: #2D3142;
+}
+
+.link-wrapper {
+    position: relative;
+    display: block;
+}
+
+.hover-2 { 
+    &:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 3px;
+        transform: scaleX(0);
+        background-color: #721817;
+
+        transition: transform 0.3s;
+    }
+
+    &:hover {
+        &:after {
+            transform: scaleX(1);    
+        }
+    }
+}

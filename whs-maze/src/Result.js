@@ -4,6 +4,7 @@ import { findPos } from "./helpers/extra.js";
 import { runTSP } from "./helpers/tsp.js";
 import ResultPaths from "./ResultPaths.js";
 import Button from 'react-bootstrap/Button';
+import './styles/Result.css';
 
 class Result extends Component {
     constructor() {
@@ -129,12 +130,12 @@ class Result extends Component {
         return (
             <div>
                 <div>
-                    <Button onClick={() => this.runTSPonClick(this.props.maze, this.props.pointsArr, this.props.start, this.props.end)}>Run TSP</Button>
-                    {this.state.missingStart ? <div>Please select a starting node!</div> : null}
-                    {this.state.missingEnd ? <div>Ending node not selected. Default ending node will be set to starting node if it exists.</div> : null}
-                    {this.state.tooShort ? <div>Please select more than one point.</div> : null}
-                    {this.state.unreachableNode ? <div>One or more of the selected points cannot be reached! Please fix before results can be displayed.</div> : null}
-                    {this.state.displayResults ? <div>Total distance: {this.state.nodeDist}. Optimal path: {this.state.nodePaths}</div> : null}
+                    <Button className="gen-res-button" onClick={() => this.runTSPonClick(this.props.maze, this.props.pointsArr, this.props.start, this.props.end)}>Run TSP</Button>
+                    {this.state.missingStart ? <div className="error-text">Please select a starting node!</div> : null}
+                    {this.state.missingEnd ? <div className="error-text">Ending node not selected. Default ending node will be set to starting node if it exists.</div> : null}
+                    {this.state.tooShort ? <div className="error-text">Please select more than one point.</div> : null}
+                    {this.state.unreachableNode ? <div className="error-text">One or more of the selected nodes cannot be reached! Please fix before results can be displayed.</div> : null}
+                    {this.state.displayResults ? <div className="error-text total-dist">Total Distance: {this.state.nodeDist} Units</div> : null}
                 </div>
                 {this.state.displayResults ? <ResultPaths resNodes={this.state.resNodes} resPaths={this.state.resPaths}/> : null}
             </div>

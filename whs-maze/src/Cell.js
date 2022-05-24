@@ -60,7 +60,7 @@ class Cell extends Component {
                 console.log("remove wall before placing a point!");
             } else if (this.props.val === 0 && this.state.activePoint === false) {
                 this.props.togglePoint(r,c,'add');
-                this.setState({ cellColor:"blue" });
+                this.setState({ cellColor:"#586F6B" });
                 this.setState({ activePoint:true });
             } else if (this.state.activePoint === true) {
                 this.resetCell(r,c);
@@ -75,18 +75,18 @@ class Cell extends Component {
                 if (this.state.endPoint === true) {
                     this.props.toggleEnd(r,c,'remove');
                     this.props.toggleStart(r,c,'add');
-                    this.setState({ cellColor:"green" });
+                    this.setState({ cellColor:"#4F7CAC" });
                     this.setState({ endPoint:false });
                     this.setState({ startPoint:true });
                 } else {
                     this.props.toggleStart(r,c,'add');
-                    this.setState({ cellColor:"green" });
+                    this.setState({ cellColor:"#4F7CAC" });
                     this.setState({ startPoint:true });
                 }
             } else if (this.state.startPoint === true) {
                 this.resetCell(r,c);
                 this.props.togglePoint(r,c,'add');
-                this.setState({ cellColor:"blue" });
+                this.setState({ cellColor:"#586F6B" });
                 this.setState({ activePoint:true });
             }
         }
@@ -100,18 +100,18 @@ class Cell extends Component {
                 if (this.state.startPoint === true) {
                     this.props.toggleStart(r,c,'remove');
                     this.props.toggleEnd(r,c,'add');
-                    this.setState({ cellColor:"red" });
+                    this.setState({ cellColor:"#721817" });
                     this.setState({ startPoint:false });
                     this.setState({ endPoint:true });
                 } else {
                     this.props.toggleEnd(r,c,'add');
-                    this.setState({ cellColor:"red" });
+                    this.setState({ cellColor:"#721817" });
                     this.setState({ endPoint:true });
                 }
             } else if (this.state.endPoint === true) {
                 this.resetCell(r,c);
                 this.props.togglePoint(r,c,'add');
-                this.setState({ cellColor:"blue" });
+                this.setState({ cellColor:"#586F6B" });
                 this.setState({ activePoint:true });
             }
         }
