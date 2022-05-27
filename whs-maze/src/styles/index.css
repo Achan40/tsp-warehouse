@@ -29,6 +29,25 @@ code {
   text-align: center;
 }
 
+.intro-text {
+  text-indent: 2rem;
+  text-align: left;
+}
+
+.bullet-list {
+  margin: 1rem;
+}
+
+.bullet-list li {
+  margin-bottom: .5rem;
+}
+
+.bullet-warning {
+  text-decoration: underline;
+  color: #721817;
+  text-decoration-color: #721817;
+}
+
 /* Making sure cards align correctly */
 .card {
   height: 100%;
