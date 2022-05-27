@@ -34,18 +34,20 @@ code {
   text-align: left;
 }
 
+.intro-plug {
+  margin: 1.5rem;
+}
+
 .bullet-list {
   margin: 1rem;
 }
 
 .bullet-list li {
-  margin-bottom: .5rem;
+  margin-bottom: .25rem;
 }
 
 .bullet-warning {
-  text-decoration: underline;
   color: #721817;
-  text-decoration-color: #721817;
 }
 
 /* Making sure cards align correctly */

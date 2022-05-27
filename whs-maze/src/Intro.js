@@ -28,7 +28,7 @@ class Intro extends Component {
                             </Card.Text>
                         </Col>
                     
-                        <Col md={6}>
+                        <Col md={5}>
                             <ul className="bullet-list">
                                 <li>Walls and destination nodes can be placed/removed by clicking on the corresponding toggle button, and then clicking on the cell</li>
                                 <li>Start/end can only be placed/removed on an active destination node</li>
@@ -38,6 +38,11 @@ class Intro extends Component {
                                 <li className="bullet-warning">It is NOT RECOMMENDED to select more than 10 destination nodes</li>
                             </ul>
                         </Col>
+
+                        <Card.Subtitle className="intro-plug">Visit the <a class="footer-link" href="https://github.com/Achan40/tsp-warehouse">GitHub Repository</a> for the full code and
+                        a detailed write-up.
+                        </Card.Subtitle>
+
                         </Row>
                     </Card.Body>
                 </Card>
