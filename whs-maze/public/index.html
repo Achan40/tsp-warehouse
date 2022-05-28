@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" prefix="og: http://ogp.me/ns#">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,12 +10,13 @@
     />
     <title>tsp-warehouse</title>
 
-    <!-- for linkedin link image -->
+    <!-- for linkedin link image, must add prefix attribute to html header -->
     <meta name="title" property="og:title" content="tsp-warehouse" />
+    <meta name="image" property="og:image" content="%PUBLIC_URL%/linkedinImage.png" />
+    <meta name="author" content="Aaron Chan" />
     <meta property="og:type" content="Website" />
-    <meta name="image" property="og:image" content="https://live.staticflickr.com/65535/52105769320_a091e097bb_h.jpg" />
-    <meta name="description" property="og:description" content="tsp-dashboard" /><meta name="author" content="Aaron Chan" />
-
+    <meta name="description" property="og:description" content="tsp-dashboard" />
+    
     <!-- adding an icon for an app -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
