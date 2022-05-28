@@ -19,24 +19,24 @@ class Grid extends Component {
 
         // array of binary maze, initiate with no walls.
         this.maze = 
-        [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]];
+        [[0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0 ]];
 
 
         this.state = {
@@ -126,7 +126,8 @@ class Grid extends Component {
                         <Col>
                             <Card bg='light' className="cust-card">
                                 <Card.Body>
-                                    <ToggleButtonGroup type="radio" name="options" onChange={(event) => {this.setCurrentButton(event)}}>
+
+                                    <ToggleButtonGroup type="radio" name="options" onChange={(event) => {this.setCurrentButton(event)}} size={"sm"}>
                                         <ToggleButton className="toggle-select" variant="secondary" id="one" value={"Points"}>Place/Remove Nodes</ToggleButton>
                                         <ToggleButton className="toggle-select" variant="secondary" id="two" value={"Walls"}>Place/Remove Walls</ToggleButton>
                                         <ToggleButton className="toggle-select" variant="secondary" id="three" value={"Start"}>Set Start</ToggleButton>

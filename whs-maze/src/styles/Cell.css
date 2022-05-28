@@ -1,12 +1,11 @@
 
 .cell {
-    width: 2rem;
-    height: 2rem;
+    width: 1.75rem;
+    height: 1.75rem;
     outline: 1px solid #846B8A;
     border-style: solid;
     display: inline-block;
     color: white;
-    margin: .15rem;
 }
 
 .cell-text-hidden {

@@ -39,10 +39,12 @@ class Intro extends Component {
                             </ul>
                         </Col>
 
-                        <Card.Subtitle className="intro-plug">Visit the <a class="footer-link" href="https://github.com/Achan40/tsp-warehouse">GitHub Repository</a> for the full code and
-                        a detailed write-up.
-                        </Card.Subtitle>
-
+                        <Container>
+                            <Card.Subtitle className="intro-plug">Visit the <a class="footer-link" href="https://github.com/Achan40/tsp-warehouse">GitHub Repository</a> for the full code and
+                            a detailed write-up.
+                            </Card.Subtitle>
+                        </Container>
+                        
                         </Row>
                     </Card.Body>
                 </Card>
