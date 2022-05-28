@@ -1,11 +1,14 @@
 
 .cell {
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 7.5vw;
+    height: 7.5vw;
+    max-width: 2.75rem;
+    max-height: 2.75rem;
     outline: 1px solid #846B8A;
     border-style: solid;
     display: inline-block;
     color: white;
+    margin: .2%;
 }
 
 .cell-text-hidden {
